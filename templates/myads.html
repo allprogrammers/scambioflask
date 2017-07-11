@@ -1,0 +1,30 @@
+{% extends 'dashboard.html' %}
+
+{% block dashboardcontent %}
+<script>document.getElementById('myads').className+=" active"</script>
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+  <h2>My Products</h2>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Product ID</th>
+          <th>Product Name</th>
+          <th>Available</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr>
+            <td><a href="?page=offers&prodid={{product.id}}">{{product.id}}</a></td>
+            <td>{{product.identifier}}</td>
+            <td>{{product.available}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+
+{% endblock %}

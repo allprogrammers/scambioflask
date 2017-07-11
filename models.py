@@ -7,7 +7,8 @@ class User(db.Model):
     fullname = db.Column(db.String(30))
     email = db.Column(db.String(100),unique=True,index=True)
     password_hash = db.Column(db.String(100))
-    products = db.relationship('product',backref='user')
+    products = db.relationship('product',backref='owner')
+    offerby = db.relationship('deals',backref='offerby')
 
     def __init__(self,fullname,email,password):
         self.fullname = fullname
@@ -43,13 +44,13 @@ class User(db.Model):
 def correctLogin(user,password):
     return user is not None and user.verify_password(password)
 
-prodcats = db.Table('prodcats',db.Column('catid',db.Integer,db.ForeignKey('category.id')),db.Column('prodid',db.Integer,db.ForeignKey('product.id')))
+categories = db.Table('categories',db.Column('catid',db.Integer,db.ForeignKey('category.id')),db.Column('prodid',db.Integer,db.ForeignKey('product.id')))
 
 class category(db.Model):
     __tablename__ = "category"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     category = db.Column(db.String(30),unique=True)
-    products = db.relationship('product',secondary = prodcats, backref=db.backref('prodcats',lazy='dynamic'))
+    products = db.relationship('product',secondary = categories, backref=db.backref('categories',lazy='dynamic'))
 
     def __init__(self,category):
         self.category = category
@@ -67,4 +68,13 @@ class product(db.Model):
     identifier = db.Column(db.String(50))
     description = db.Column(db.String(500))
     imagelocation = db.Column(db.String(100))
+    available = db.Column(db.Boolean())
+    offerfor = db.relationship('deals',backref="offerfor")
 
+class deals(db.Model):
+    __tablename__ = "deals"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    offerbyid = db.Column(db.Integer,db.ForeignKey('user.id'))
+    offerforid = db.Column(db.Integer,db.ForeignKey('product.id'))
+    confirm = db.Column(db.Boolean,default=False)
+    

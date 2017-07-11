@@ -1,0 +1,57 @@
+{% extends "starternew.html" %}
+
+{% block containercontent %}
+    <script> document.getElementById('explore').className += " active";</script>
+    <!-- Custom styles for this template -->
+    <link href="static/exploreads.css" rel="stylesheet">
+    <!-- Begin page content -->
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class='alert alert-danger'>
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+
+        <hr>
+        <div class='row'>
+            <div class="col-md-4">
+                <form class="form-signin" action="{{url_for('explore')}}" method="post">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="text" id="inputKeyword" name="keyword" class="form-control" placeholder="Keyword" autofocus><br>
+                            {% for cat in cats %}
+                            <input type='checkbox' name='cats' value='{{cat.category}}'>{{cat.category}}<br>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-lg btn-primary btn-block" style="line-height:0.5" name="submit" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <!-- Three columns of text below the carousel -->
+                {% for products_row in products | batch(3,'&nbsp;') %}
+                <div class="row">
+                    {% for product in products_row if product.identifier %}
+                    <div class="col-lg-4">
+                        <img class="rounded-circle" src="./images/{{product.imagelocation}}" alt="{{product.identifier}}" width="140" height="140">
+                        <h2>{{product.identifier}}</h2>
+                        <p>{{product.description}}</p>
+                        <p><a class="btn btn-secondary" href="makedeal?id={{product.id}}" role="button">Make Offer &raquo;</a></p>
+                    </div><!-- /.col-lg-4 -->
+                    {% endfor %}
+                </div><!-- /.row -->
+                {% endfor %}
+            </div>
+        </div>
+    </div><!-- /.container -->
+{% endblock %}

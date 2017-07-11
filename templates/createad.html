@@ -1,7 +1,7 @@
 {% extends "starternew.html" %}
 
 {% block containercontent %}
-    <script>document.getElementById('login').className += " active";</script>
+    <script>document.getElementById('createad').className += " active";</script>
 	<script>
  	function addcat() {
  		var cat = document.getElementById("cattoadd").value;
@@ -18,7 +18,7 @@
     <!-- Custom styles for this template -->
     <link href="static/createad.css" rel="stylesheet">
     <div class="container">
-        <form class="form-signin" action="{{ request.path }}" method="post" enctype="multipart/form-data">
+        <form class="form-signin" action="{{ url_for('createad')}}" method="post" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-md-6">
 					<h2 class="form-signin-heading">Add Product</h2>
@@ -31,7 +31,6 @@
 					<textarea class="form-control" name='description' style="height: 150px;resize: none" placeholder="Description" required></textarea>
 					<label for="inputPic" class="sr-only">Picture</label>
 					<input type="file" id="inputPic" name="pic" class="form-control" multiple required>
-					Minimum three files. Individual maximum size 5MB.
 				</div>
 				<div class="col-md-6">
 					<select name="cats" id="cats" class="form-control" style="height: 150px;" multiple>

@@ -1,0 +1,30 @@
+{% extends 'dashboard.html' %}
+
+{% block dashboardcontent %}
+<script>document.getElementById('replies').className+=" active"</script>
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+  <h2>Confirmed Deals</h2>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Owner's Name</th>
+          <th>Owner's Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for reply in replies %}
+        <tr>
+            <td>{{reply.offerfor.identifier}}</td>
+            <td>{{reply.offerfor.owner.fullname}}</td>
+            <td>{{reply.offerfor.owner.email}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+
+{% endblock %}

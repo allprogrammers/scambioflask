@@ -1,0 +1,36 @@
+{% extends 'dashboard.html' %}
+
+{% block dashboardcontent %}
+<script>document.getElementById('offers').className+=" active"</script>
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+  <h2>Offers for my products</h2>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Offer By</th>
+          <th>Email</th>
+          <th>Confirm</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for deal in deals %}
+        <tr>
+            <td>{{deal.offerfor.identifier}}</td>
+            <td>{{deal.offerby.fullname}}</td>
+            <td>{{deal.offerby.email}}</td>
+            <td>
+                <form method='post' action='{{url_for('makedeal')}}'>
+                    <input type='hidden' value="{{deal.id}}" name='dealid'>
+                    <button type='submit' name='submit'>Accept</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+{% endblock %}

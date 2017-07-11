@@ -1,0 +1,30 @@
+{% extends "starternew.html"  %}
+
+{% block containercontent %}
+<!-- Custom styles for this template -->
+<link href="static/dashboard.css" rel="stylesheet">
+<script>
+document.getElementById("dashboard").className += " active";
+</script>
+     
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href='?page=myads' id="myads">My Products </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href='?page=offers' id="offers">Offers </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href='?page=replies' id="replies">Replies </a>
+        </li>
+      </ul>
+    </nav>
+    {% block dashboardcontent %}
+    {% endblock %}
+
+  </div>
+</div>
+{% endblock %}
